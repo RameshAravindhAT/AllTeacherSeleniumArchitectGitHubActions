@@ -30,7 +30,7 @@
           <version>3.0.0-M5</version> <!-- Ensure to use a compatible version for Java 17 -->
           <configuration>
             <suiteXmlFiles>
-              <suiteXmlFile>testngexplore2.xml</suiteXmlFile> <!-- Path to your testng.xml file -->
+              <suiteXmlFile>testngexplore.xml</suiteXmlFile> <!-- Path to your testng.xml file -->
             </suiteXmlFiles>
           </configuration>
         </plugin>
