@@ -32,4 +32,4 @@ jobs:
         echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in non-headless mode (default mode)
 
     - name: Run Tests
-      run: mvn test  # Run the tests with Maven
+      run: mvn test -Dextent.report.path=$GITHUB_WORKSPACE/reports/ExtentReport.html
