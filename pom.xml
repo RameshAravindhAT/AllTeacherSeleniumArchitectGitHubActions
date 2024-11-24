@@ -6,6 +6,7 @@
    <properties>
     <!-- Specify the Java version for compiling -->
       <extent.report.path>${project.build.directory}/extent-reports/ExtentReport.html</extent.report.path>
+      
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
