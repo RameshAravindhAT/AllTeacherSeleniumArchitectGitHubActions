@@ -32,10 +32,10 @@ jobs:
       run: mkdir -p $GITHUB_WORKSPACE/reports  # Ensure the reports directory exists
 
     - name: Run Maven Tests
-      run: mvn -Dextent.report.path=$GITHUB_WORKSPACE/reports/ExtentReport.html test  # Corrected command
+      run: mvn clean test -Dextent.report.path=$GITHUB_WORKSPACE/reports/ExtentReport.html  # Pass the report path to Maven
 
     - name: Upload Extent Report
       uses: actions/upload-artifact@v3
       with:
         name: ExtentReport
-        path: $GITHUB_WORKSPACE/reports/ExtentReport.html
+        path: $GITHUB_WORKSPACE/reports/ExtentReport.html  # Ensure the report is uploaded
