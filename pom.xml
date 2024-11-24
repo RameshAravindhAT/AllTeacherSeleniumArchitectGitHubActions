@@ -5,7 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
    <properties>
     <!-- Specify the Java version for compiling -->
-      <extent.report.path>${project.build.directory}/extent-reports/ExtentReport.html</extent.report.path>
+      <extent.report.path>C:\Users\Hp\git\AllTeacherSeleniumArchitectGitHubActions\ExtentReports\extentReports.html</extent.report.path>
       
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
