@@ -24,12 +24,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Install Chrome and ChromeDriver
-      uses: actions/setup-chrome@v1  # Automatically installs Chrome and ChromeDriver
-      with:
-        chrome-version: latest  # Ensures the latest version of Chrome is installed
-
-    - name: Configure Chrome environment variables
+    - name: Set environment variables for Chrome
       run: |
         echo "CHROME_HEADLESS=true" >> $GITHUB_ENV  # Set Chrome to run in headless mode
 
