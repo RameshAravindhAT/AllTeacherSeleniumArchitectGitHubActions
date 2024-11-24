@@ -1,0 +1,35 @@
+name: Run Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to run tests on'
+        required: true
+        default: 'feature'  # Default branch to run the tests on
+
+jobs:
+  test:
+    runs-on: windows-latest  # Run on Windows
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # This checks out the code from the repository
+      with:
+        ref: ${{ github.event.inputs.branch }}  # Use the branch input from the manual trigger
+
+    - name: Set up Java 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'  # Specify Java version 17
+        distribution: 'temurin'  # Specify the Java distribution (Temurin is the recommended option)
+
+    - name: Set ChromeDriver path and Chrome path
+      run: |
+        # Set the path to ChromeDriver and Chrome executable
+        echo "CHROMEDRIVER_PATH=C:\\path\\to\\chromedriver" >> $GITHUB_ENV  # Set the path to your locally installed ChromeDriver
+        echo "CHROME_PATH=C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" >> $GITHUB_ENV  # Set the path to your locally installed Chrome
+        echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in non-headless mode (default mode)
+
+    - name: Run Tests
+      run: mvn test  # Run the tests with Maven
