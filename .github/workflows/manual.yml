@@ -1,5 +1,4 @@
 name: Run Tests
-
 on:
   workflow_dispatch:
     inputs:
@@ -7,35 +6,28 @@ on:
         description: 'Branch to run tests on'
         required: true
         default: 'feature'
-
 jobs:
   test:
     runs-on: windows-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
         ref: ${{ github.event.inputs.branch }}
-
     - name: Set up Java 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
-
     - name: Set environment variables for Chrome
       run: |
-        echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in headless mode
-
+        echo "CHROME_HEADLESS=false" >> $GITHUB_ENV
     - name: Create reports directory
-      run: mkdir -p $GITHUB_WORKSPACE/reports  # Ensure the reports directory exists
-
+      run: mkdir -p ${{ github.workspace }}/reports
     - name: Run Maven Tests
-      run: mvn test -Dextent.report.path=/reports/extentReport.html
-
+      run: mvn clean test -Dextent.report.path=${{ github.workspace }}/reports/extentReport.html
     - name: Upload Extent Report
       uses: actions/upload-artifact@v3
       with:
         name: ExtentReport
-        path: $GITHUB_WORKSPACE/reports/extentReport.html  # Ensure the report is uploaded
+        path: ${{ github.workspace }}/reports/extentReport.html
