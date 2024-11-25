@@ -38,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ExtentReport
-        path: $GITHUB_WORKSPACE/reports/ExtentReport.html  # Ensure the report is uploaded
+        path: $GITHUB_WORKSPACE/reports/extentReport.html  # Ensure the report is uploaded
