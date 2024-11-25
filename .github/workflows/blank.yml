@@ -26,16 +26,9 @@ jobs:
 
     - name: Set environment variables for Chrome
       run: |
-        echo "CHROME_HEADLESS=true" >> $GITHUB_ENV  # Set Chrome to run in headless mode
-
-    - name: Create reports directory
-      run: mkdir -p $GITHUB_WORKSPACE/reports  # Ensure the reports directory exists
+        echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in headless mode
 
     - name: Run Maven Tests
-      run: mvn clean test -Dextent.report.path=$GITHUB_WORKSPACE/reports/ExtentReport.html  # Pass the report path to Maven
+      run: mvn clean test 
 
-    - name: Upload Extent Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: ExtentReport
-        path: $GITHUB_WORKSPACE/reports/ExtentReport.html  # Ensure the report is uploaded
+   
