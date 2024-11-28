@@ -29,10 +29,10 @@ jobs:
       run: mkdir ${{ github.workspace }}\reports
     
     - name: Run Maven Tests
-      run: mvn clean test -D"extent.report.path=${{ github.workspace }}\reports\extentReport.html"
+      run: mvn clean test -D"extent.report.path=${{ github.workspace }}\ExtentReports\extentReport.html"
     
     - name: Upload Extent Report
       uses: actions/upload-artifact@v3
       with:
         name: ExtentReport
-        path: ${{ github.workspace }}\reports\extentReport.html
+        path: ${{ github.workspace }}\ExtentReports\extentReport.html
