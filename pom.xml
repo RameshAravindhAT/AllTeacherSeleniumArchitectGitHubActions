@@ -38,6 +38,8 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
+    </plugins>
+  </build>
 
   <dependencies>
     <!-- Selenium Java -->
