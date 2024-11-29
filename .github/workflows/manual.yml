@@ -1,47 +1,38 @@
-name: Run Tests
+name: Java Maven CI
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to run tests on'
-        required: true
-        default: 'feature'
+  workflow_dispatch:  # Allows manual triggering
+  push:
+    branches:
+      - 'feature/*'  # Trigger only on push to branches that start with 'feature/'
 
 jobs:
-  test:
-    runs-on: windows-latest
+  build:
+    runs-on: windows-latest  # Use the latest Windows environment
 
     steps:
-    # Step 1: Checkout the code
-    - name: Checkout code
+    - name: Checkout the repository
       uses: actions/checkout@v3
-      with:
-        ref: ${{ github.event.inputs.branch }}
 
-    # Step 2: Set up Java 17
-    - name: Set up Java 17
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'
+        distribution: 'adoptopenjdk'
 
-    # Step 3: Run Maven Tests and Generate Extent Report
-    - name: Run Maven Tests
-      run: |
-        mvn clean test -Dextent.report.path=target/ExtentReports/extentReports.html
-      env:
-        CHROME_HEADLESS: false
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: C:\Users\runneradmin\.m2\repository  # Path for Windows
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
-    # Step 4: Verify Report Generation
-    - name: Verify Generated Files
-      run: |
-        echo "Checking the Extent Report..."
-        dir target/ExtentReports /s
+    - name: Build and run tests with Maven
+      run: mvn clean test
 
-    # Step 5: Upload Extent Report
-    - name: Upload Extent Report
+    - name: Upload Extent Report as artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ExtentReport
-        path: target/ExtentReports/extentReports.html
+        name: extent-report
+        path: target/ExtentReports/extentReports.html  # Path to the generated Extent report
