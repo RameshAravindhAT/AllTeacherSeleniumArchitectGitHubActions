@@ -6,7 +6,6 @@ on:
         description: 'Branch to run tests on'
         required: true
         default: 'feature'
-
 jobs:
   test:
     runs-on: windows-latest
@@ -25,9 +24,6 @@ jobs:
     - name: Set environment variables for Chrome
       run: echo CHROME_HEADLESS=false >> $env:GITHUB_ENV
     
-    - name: Create reports directory
-      run: mkdir ${{ github.workspace }}\reports
-    
     - name: Run Maven Tests with Extent Reports
       run: mvn clean test -Dmaven.test.failure.ignore=true
     
@@ -35,4 +31,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ExtentReport
-        path: ${{ github.workspace }}\ExtentReports\extentReports.html
+        path: target/ExtentReports/extentReports.html
