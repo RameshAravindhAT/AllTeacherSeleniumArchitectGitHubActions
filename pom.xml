@@ -40,7 +40,8 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
-  </build>
+    </plugins> <!-- Closing plugins tag -->
+  </build> <!-- Closing build tag -->
 
   <dependencies>
     <!-- Selenium Java -->
