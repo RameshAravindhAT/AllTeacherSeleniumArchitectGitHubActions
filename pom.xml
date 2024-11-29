@@ -1,8 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>org.AllTeacherSeleniumArchitectGitHubActions</groupId>
   <artifactId>AllTeacherSeleniumArchitectGitHubActions</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
   <properties>
     <extent.report.path>${project.build.directory}/ExtentReports/extentReports.html</extent.report.path>
     <maven.compiler.source>17</maven.compiler.source>
@@ -36,6 +38,23 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
+
+      <!-- ExtentReports Plugin for generating reports -->
+      <plugin>
+        <groupId>com.aventstack</groupId>
+        <artifactId>extentreports-maven-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <outputDirectory>${project.build.directory}/ExtentReports</outputDirectory>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -46,6 +65,7 @@
       <artifactId>selenium-java</artifactId>
       <version>4.25.0</version>
     </dependency>
+
     <!-- TestNG -->
     <dependency>
       <groupId>org.testng</groupId>
@@ -53,6 +73,7 @@
       <version>7.10.2</version>
       <scope>test</scope>
     </dependency>
+
     <!-- WebDriverManager -->
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
@@ -60,12 +81,14 @@
       <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
+
     <!-- ExtentReports -->
     <dependency>
       <groupId>com.aventstack</groupId>
       <artifactId>extentreports</artifactId>
       <version>5.1.2</version>
     </dependency>
+
     <!-- Modernized Log4j Dependencies -->
     <dependency>
       <groupId>log4j</groupId>
@@ -77,12 +100,14 @@
       <artifactId>log4j-core</artifactId>
       <version>2.20.0</version>
     </dependency>
+
     <!-- Commons IO -->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.17.0</version>
     </dependency>
+
     <!-- Apache POI for Excel -->
     <dependency>
       <groupId>org.apache.poi</groupId>
@@ -95,4 +120,5 @@
       <version>5.3.0</version>
     </dependency>
   </dependencies>
+
 </project>
