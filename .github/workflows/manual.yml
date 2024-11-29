@@ -26,19 +26,20 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Step 3: Set environment variables for Chrome
-    - name: Set environment variables for Chrome
-      run: echo CHROME_HEADLESS=false >> $env:GITHUB_ENV
+    # Step 3: Run Maven Tests and Generate Extent Report
+    - name: Run Maven Tests
+      run: |
+        mvn clean test -Dextent.report.path=target/ExtentReports/extentReports.html
+      env:
+        CHROME_HEADLESS: false
 
-    # Step 4: Run Maven Tests with Extent Reports
-    - name: Run Maven Tests with Extent Reports
-      run: mvn test -Dmaven.test.failure.ignore=true
+    # Step 4: Verify Report Generation
+    - name: Verify Generated Files
+      run: |
+        echo "Checking the Extent Report..."
+        dir target/ExtentReports /s
 
-    # Step 5: Debug Generated Files
-    - name: Debug Generated Files
-      run: dir target/ExtentReports /s
-
-    # Step 6: Upload Extent Report
+    # Step 5: Upload Extent Report
     - name: Upload Extent Report
       uses: actions/upload-artifact@v3
       with:
