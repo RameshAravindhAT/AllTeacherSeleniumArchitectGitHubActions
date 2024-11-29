@@ -39,23 +39,23 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
-      <plugins>
-  <!-- Other plugins -->
-  <plugin>
-    <groupId>com.aventstack</groupId>
-    <artifactId>extentreports-maven-plugin</artifactId>
-    <version>3.1.1</version>
-    <executions>
-      <execution>
-        <goals>
-          <goal>report</goal>  <!-- Goal to generate the report -->
-        </goals>
-      </execution>
-    </executions>
-    <configuration>
-      <outputDirectory>${project.build.directory}/ExtentReports</outputDirectory>
-    </configuration>
-  </plugin>
+
+      <!-- ExtentReports Maven Plugin -->
+      <plugin>
+        <groupId>com.aventstack</groupId>
+        <artifactId>extentreports-maven-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>report</goal>  <!-- Goal to generate the report -->
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <outputDirectory>${project.build.directory}/ExtentReports</outputDirectory> <!-- Location of report -->
+        </configuration>
+      </plugin>
 
       <!-- Maven Failsafe Plugin for integration tests (optional) -->
       <plugin>
