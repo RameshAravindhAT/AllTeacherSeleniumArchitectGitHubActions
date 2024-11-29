@@ -28,8 +28,8 @@ jobs:
     - name: Create reports directory
       run: mkdir ${{ github.workspace }}\reports
     
-    - name: Run Maven Tests
-      run: mvn clean test -D"extent.report.path=${{ github.workspace }}\ExtentReports\extentReport.html"
+    - name: Run Maven Tests with Extent Reports
+      run: mvn clean test -DsuiteXmlFile=testngexplore.xml
     
     - name: Upload Extent Report
       uses: actions/upload-artifact@v3
