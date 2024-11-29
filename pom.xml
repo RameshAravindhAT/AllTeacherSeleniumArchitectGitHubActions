@@ -40,21 +40,6 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
-
-      <!-- ExtentReports Maven Plugin for generating reports -->
-      <plugin>
-        <groupId>com.aventstack</groupId>
-        <artifactId>extentreports-maven-plugin</artifactId>
-        <version>1.0.9</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
 
   <dependencies>
