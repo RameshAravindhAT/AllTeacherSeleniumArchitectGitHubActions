@@ -28,7 +28,11 @@ jobs:
       run: |
         echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in headless mode
 
-    - name: Run Maven Tests
-      run: mvn clean test 
+    - name: Run Maven Tests and Generate Report
+      run: mvn clean test site  # Runs tests and generates the Extent report
 
-   
+    - name: Upload Extent Report as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: extent-report
+        path: target/ExtentReports/extentReports.html  # Path to the generated Extent report
