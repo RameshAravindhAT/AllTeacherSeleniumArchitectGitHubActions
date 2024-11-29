@@ -30,9 +30,9 @@ jobs:
     - name: Set environment variables for Chrome
       run: echo CHROME_HEADLESS=false >> $env:GITHUB_ENV
 
-    # Step 4: Run Maven Tests with Extent Reports
+     # Step 4: Run Maven Tests with Extent Reports
     - name: Run Maven Tests with Extent Reports
-      run: mvn test -Dmaven.test.failure.ignore=true
+      run: mvn test
 
     # Step 5: Upload Extent Report
     - name: Upload Extent Report
