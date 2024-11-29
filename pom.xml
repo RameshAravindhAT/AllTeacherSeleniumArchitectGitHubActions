@@ -3,9 +3,7 @@
   <groupId>org.AllTeacherSeleniumArchitectGitHubActions</groupId>
   <artifactId>AllTeacherSeleniumArchitectGitHubActions</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-
   <properties>
-    <!-- Specify paths and Java version -->
     <extent.report.path>${project.build.directory}/ExtentReports/extentReports.html</extent.report.path>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -30,18 +28,16 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M5</version>
         <configuration>
-          <!-- Specify TestNG XML suite -->
           <suiteXmlFiles>
-            <suiteXmlFile>testngexplore.xml</suiteXmlFile>
+            <suiteXmlFile>testngexplore.xml</suiteXmlFile> <!-- TestNG suite file -->
           </suiteXmlFiles>
-          <!-- Define system properties, including the path for Extent Reports -->
           <systemPropertyVariables>
-            <extent.report.path>${project.build.directory}/ExtentReports/extentReports.html</extent.report.path>
+            <extent.report.path>${project.build.directory}/ExtentReports/extentReports.html</extent.report.path> <!-- Report path -->
           </systemPropertyVariables>
         </configuration>
       </plugin>
-    </plugins> <!-- Closing plugins tag -->
-  </build> <!-- Closing build tag -->
+    </plugins>
+  </build>
 
   <dependencies>
     <!-- Selenium Java -->
