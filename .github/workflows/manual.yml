@@ -25,7 +25,7 @@ jobs:
       run: echo CHROME_HEADLESS=false >> $env:GITHUB_ENV
     
     - name: Run Maven Tests with Extent Reports
-      run: mvn clean test -Dmaven.test.failure.ignore=true
+      run: mvn test -Dmaven.test.failure.ignore=true
     
     - name: Upload Extent Report
       uses: actions/upload-artifact@v3
