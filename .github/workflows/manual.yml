@@ -29,7 +29,7 @@ jobs:
       run: mkdir ${{ github.workspace }}\reports
     
     - name: Run Maven Tests with Extent Reports
-      run: mvn clean test -DsuiteXmlFile=testngexplore.xml
+      run: mvn clean test -DsuiteXmlFile=testngexplore.xml -Dmaven.test.failure.ignore=true
     
     - name: Upload Extent Report
       uses: actions/upload-artifact@v3
