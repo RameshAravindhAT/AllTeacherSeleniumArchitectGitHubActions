@@ -47,8 +47,9 @@
         <version>3.1.1</version>
         <executions>
           <execution>
+            <phase>verify</phase> <!-- Bind plugin to the 'verify' phase -->
             <goals>
-              <goal>report</goal>  <!-- Goal to generate the report -->
+              <goal>report</goal> <!-- Generate the report -->
             </goals>
           </execution>
         </executions>
