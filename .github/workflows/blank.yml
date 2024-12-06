@@ -29,15 +29,15 @@ jobs:
         echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in headless mode
 
     - name: Run Maven Tests and Generate Report
-      run: mvn clean test  # Running only 'clean test' to generate reports
+      run: mvn clean test  # Running tests to generate reports
 
     - name: List contents of target directory
-      run: ls -R target  # List files in target directory to verify report location
+      run: dir target /s /b  # List all files recursively to check where the report is generated
 
     - name: Upload Extent Report as artifact
       uses: actions/upload-artifact@v3
       with:
         name: extent-report
-        path: target/ExtentReports/extentReports.html  # Path to the generated Extent report
+        path: target/ExtentReports/extentReports.html  # Ensure this path matches the generated report location
         if-no-files-found: warn
         include-hidden-files: false
