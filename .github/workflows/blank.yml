@@ -32,7 +32,7 @@ jobs:
       run: mvn clean test  # Running tests to generate reports
 
     - name: List contents of target directory
-      run: dir target /s /b  # List all files recursively to check where the report is generated
+      run: Get-ChildItem -Recurse target  # Correct PowerShell command for listing files
 
     - name: Upload Extent Report as artifact
       uses: actions/upload-artifact@v3
