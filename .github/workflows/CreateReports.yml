@@ -1,0 +1,45 @@
+name: Run Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to run tests on'
+        required: true
+        default: 'feature'
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.branch }}
+
+    - name: Set up Java 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Set environment variables for Chrome
+      run: |
+        echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in headless mode
+
+    - name: Run Maven Tests and Generate Report
+      run: mvn clean test  # Running tests to generate reports
+
+    - name: List files in target directory
+      run: |
+        echo "Listing files in the target directory:"
+        dir target\ /s /b  # List all files in the target directory
+
+    - name: Upload Extent Report as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: extent-report
+        path: target/ExtentReports/*
+        if-no-files-found: warn
+        include-hidden-files: false
