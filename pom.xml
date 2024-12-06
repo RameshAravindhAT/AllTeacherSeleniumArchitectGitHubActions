@@ -41,22 +41,23 @@
       </plugin>
 
       <!-- ExtentReports Maven Plugin -->
-      <plugin>
-        <groupId>com.aventstack</groupId>
-        <artifactId>extentreports-maven-plugin</artifactId>
-        <version>3.1.1</version>
-        <executions>
-          <execution>
+   <plugin>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports-maven-plugin</artifactId>
+    <version>3.1.1</version>
+    <executions>
+        <execution>
             <phase>verify</phase> <!-- Bind plugin to the 'verify' phase -->
             <goals>
-              <goal>report</goal> <!-- Generate the report -->
+                <goal>report</goal> <!-- Generate the report -->
             </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <outputDirectory>${project.build.directory}/ExtentReports</outputDirectory> <!-- Location of report -->
-        </configuration>
-      </plugin>
+        </execution>
+    </executions>
+    <configuration>
+        <outputDirectory>${project.build.directory}/ExtentReports</outputDirectory> <!-- Location of report -->
+    </configuration>
+</plugin>
+
 
       <!-- Maven Failsafe Plugin for integration tests (optional) -->
       <plugin>
