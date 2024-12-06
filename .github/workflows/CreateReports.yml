@@ -31,15 +31,10 @@ jobs:
     - name: Run Maven Tests and Generate Report
       run: mvn clean test  # Running tests to generate reports
 
-    - name: List files in target directory
-      run: |
-        echo "Listing files in the target directory:"
-        dir target\ /s /b  # List all files in the target directory
-
     - name: Upload Extent Report as artifact
       uses: actions/upload-artifact@v3
       with:
         name: extent-report
-        path: target/ExtentReports/*
+        path: target/ExtentReports/**/*  # Ensure to include all files and subdirectories
         if-no-files-found: warn
         include-hidden-files: false
