@@ -31,13 +31,15 @@ jobs:
     - name: Run Maven Tests and Generate Report
       run: mvn clean test  # Running tests to generate reports
 
-    - name: List contents of target directory
-      run: Get-ChildItem -Recurse target  # Correct PowerShell command for listing files
+    - name: List files in target directory
+      run: |
+        echo "Listing files in the target directory:"
+        dir target\ /s /b  # List all files in the target directory
 
     - name: Upload Extent Report as artifact
       uses: actions/upload-artifact@v3
       with:
         name: extent-report
-        path: target/ExtentReports/extentReports.html  # Ensure this path matches the generated report location
+        path: target/ExtentReports/*
         if-no-files-found: warn
         include-hidden-files: false
