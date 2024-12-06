@@ -35,6 +35,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: extent-report
-        path: target/ExtentReports/**/*  # Ensure to include all files and subdirectories
+        path: ExtentReports/*
         if-no-files-found: warn
         include-hidden-files: false
