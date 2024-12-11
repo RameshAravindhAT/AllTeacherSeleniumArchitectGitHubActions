@@ -54,6 +54,23 @@ jobs:
         }
       shell: pwsh
 
+    - name: Print File Path and Contents
+      run: |
+        echo "File path: ${{ github.workspace }}/ExtentReports/extentReports.html"
+        Get-Content -Path "${{ github.workspace }}/ExtentReports/extentReports.html" -Head 10
+      shell: pwsh
+
+    - name: Check File Size and Warn if Too Large
+      run: |
+        $filePath = "${{ github.workspace }}/ExtentReports/extentReports.html"
+        $fileSize = (Get-Item $filePath).Length / 1MB  # Size in MB
+        echo "File Size: $fileSize MB"
+        if ($fileSize -gt 25) {
+          echo "Warning: The report exceeds Gmail's attachment limit (25 MB). Email will not be sent."
+          exit 1  # Exit the workflow to stop email sending
+        }
+      shell: pwsh
+
     - name: Send Email with Attachment
       uses: dawidd6/action-send-mail@v4
       with:
@@ -65,4 +82,4 @@ jobs:
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: ${{ github.event.inputs.email_body }}  # Email body content
-        attachments: ${{ github.workspace }}\ExtentReports\extentReports.html  # Full path to the report
+        attachments: ${{ github.workspace }}/ExtentReports/extentReports.html  # Updated with forward slashes
