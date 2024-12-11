@@ -7,6 +7,14 @@ on:
         description: 'Branch to run tests on'
         required: true
         default: 'feature'
+      email_subject:
+        description: 'Subject of the email'
+        required: true
+        default: 'Run Automation Test'
+      email_body:
+        description: 'Body of the email'
+        required: true
+        default: 'Here is the test report.'
 
 jobs:
   test:
@@ -48,6 +56,6 @@ jobs:
         password: ${{ secrets.EMAIL_PASSWORD }}
         to: ramesharavindhkarthikeyan.qa@gmail.com
         from: ${{ secrets.EMAIL_USERNAME }}  # Add this line for the 'from' email
-        subject: Automation Test Results
-        body: Here is the test report.
-        attachments: target/ExtentReports/extentReports.html
+        subject: ${{ github.event.inputs.email_subject }}  # Use the subject passed from the API
+        body: ${{ github.event.inputs.email_body }}  # Use the body passed from the API
+        attachments: target/ExtentReports/extentReports.html  # Attach the test report generated
