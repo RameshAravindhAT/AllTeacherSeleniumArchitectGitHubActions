@@ -54,6 +54,7 @@ jobs:
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: |
+          Dear Client,
           We hope this message finds you well.
 
           As requested, the automation tests have been successfully executed. Please find attached the detailed test report, which has been generated and configured as per your specifications by Navadhiti Business Consultancy Solutions. We are pleased to inform you that the tests were completed as expected.
