@@ -50,12 +50,12 @@ jobs:
         server_port: 587
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
-        # Use GitHub's actor to send the email only to the person who triggered the workflow
-        to: ${{ secrets'CLIENT_EMAIL' }}  # This will dynamically select the email based on the actor's username
+        # Correctly referencing the GitHub secret for client email
+        to: ${{ secrets.CLIENT_EMAIL }}  # Make sure CLIENT_EMAIL is defined in your GitHub secrets
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: |
-          Dear ${{ secrets.CLIENT_NAME }},  # Use the CLIENT_NAME secret for dynamic greeting
+          Dear ${{ secrets.CLIENT_NAME }},  # Make sure CLIENT_NAME is defined in your GitHub secrets
 
           We hope this message finds you well.
 
