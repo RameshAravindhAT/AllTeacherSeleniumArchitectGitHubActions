@@ -32,15 +32,13 @@ jobs:
         echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in headless mode
     - name: Run Maven Tests and Generate Report
       run: mvn clean test  # Running tests to generate reports
-    - name: Debug:List Files in Workspace
-      run: |
-        ls -R
-    - name: Verify Report File Exists
-      run: |
-        if [ ! -f extentReports.html ]; then
-          echo "Report file not found!";
-          exit 1;
-        fi
+    - name: Upload Extent Report as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: extent-report
+        path: ExtentReports/*
+        if-no-files-found: warn
+        include-hidden-files: false
     - name: Send Email with Report
       uses: dawidd6/action-send-mail@v4
       with:
@@ -49,7 +47,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         to: ramesharavindhkarthikeyan.qa@gmail.com
-        from: ${{ secrets.EMAIL_FROM }}
+        from: ${{ secrets.EMAIL_FROM }}  # Updated to use EMAIL_FROM secret
         subject: ${{ github.event.inputs.email_subject }}
         body: ${{ github.event.inputs.email_body }}
         attachments: extentReports.html
