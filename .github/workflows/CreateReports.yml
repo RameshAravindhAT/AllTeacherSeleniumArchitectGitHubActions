@@ -45,26 +45,6 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/ExtentReports
         mv ExtentReports/extentReports.html $GITHUB_WORKSPACE/ExtentReports/extentReports.html
 
-    - name: Check if Report Exists
-      run: |
-        if (Test-Path "$GITHUB_WORKSPACE/ExtentReports/extentReports.html") {
-          Write-Host "Report found!"
-        } else {
-          Write-Host "Report not found!"
-        }
-      shell: pwsh
-
-    - name: Check File Size and Warn if Too Large
-      run: |
-        $filePath = "${{ github.workspace }}/ExtentReports/extentReports.html"
-        $fileSize = (Get-Item $filePath).Length / 1MB  # Size in MB
-        echo "File Size: $fileSize MB"
-        if ($fileSize -gt 25) {
-          echo "Warning: The report exceeds Gmail's attachment limit (25 MB). Email will not be sent."
-          exit 1  # Exit the workflow to stop email sending
-        }
-      shell: pwsh
-
     - name: Send Email with Attachment
       uses: dawidd6/action-send-mail@v4
       with:
