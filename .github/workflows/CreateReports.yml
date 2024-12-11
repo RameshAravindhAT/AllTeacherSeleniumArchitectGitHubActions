@@ -14,9 +14,11 @@ on:
         description: 'Body of the email'
         required: true
         default: 'Here is the test report.'
+
 jobs:
   test:
     runs-on: windows-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -56,4 +58,13 @@ jobs:
         to: ramesharavindhkarthikeyan.qa@gmail.com
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
-        body: ${{ github.event.inputs.email_body }}<br><br>${{ env.REPORT_BODY }}  # Embedding the HTML content from the file
+        body: |
+          <html>
+          <body>
+            <p>${{ github.event.inputs.email_body }}</p>
+            <hr>
+            <h3>Test Report:</h3>
+            <div>${{ env.REPORT_BODY }}</div>  <!-- Embedding raw HTML report content -->
+          </body>
+          </html>
+        is_html: true  # Important to make sure it's treated as HTML
