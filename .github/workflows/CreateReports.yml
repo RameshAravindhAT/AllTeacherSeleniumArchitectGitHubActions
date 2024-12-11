@@ -39,11 +39,12 @@ jobs:
     - name: Read the HTML report and embed it in the email body
       id: embed-report
       run: |
-        # Read the content of the extentReports.html into a variable
-        REPORT_BODY=$(cat ExtentReports/extentReports.html)
+        # Read the content of the extentReports.html into a variable using PowerShell
+        $REPORT_BODY = Get-Content -Path "ExtentReports/extentReports.html" -Raw
         echo "REPORT_BODY<<EOF" >> $GITHUB_ENV
         echo "$REPORT_BODY" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
+      shell: pwsh
 
     - name: Send Email with Embedded Report
       uses: dawidd6/action-send-mail@v4
