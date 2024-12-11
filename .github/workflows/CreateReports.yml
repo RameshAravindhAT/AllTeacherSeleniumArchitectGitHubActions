@@ -51,7 +51,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         # Use GitHub's actor to send the email only to the person who triggered the workflow
-        to: ${{ secrets['CLIENT_EMAIL_' + github.actor] }}  # This will dynamically select the email based on the actor's username
+        to: ${{ secrets'CLIENT_EMAIL' }}  # This will dynamically select the email based on the actor's username
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: |
