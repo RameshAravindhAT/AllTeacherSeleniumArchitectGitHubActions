@@ -40,7 +40,6 @@ jobs:
      
     - name: Comprehensive File Search
       run: |
-        # Detailed file discovery
         powershell -Command "Get-ChildItem -Path . -Recurse -Include *report*.html | Select-Object FullName"
         
     - name: Send Email with Report
@@ -50,12 +49,12 @@ jobs:
         server_port: 587
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
-        to: ${{ secrets.CLIENT_EMAIL }}  # Multiple emails are separated by commas
-        cc: reslirocker@gmail.com  # CC recipient
+        to: ${{ secrets.CLIENT_EMAIL }}
+        cc: reslirocker@gmail.com
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: |
-          Dear ${{ secrets.CLIENT_NAME }},  # Make sure CLIENT_NAME is defined in your GitHub secrets
+          Dear Client,
 
           We hope this message finds you well.
 
@@ -73,3 +72,4 @@ jobs:
 
         attachments: |
           target\**\*report*.html
+          target\**\*extent-report*.html 
