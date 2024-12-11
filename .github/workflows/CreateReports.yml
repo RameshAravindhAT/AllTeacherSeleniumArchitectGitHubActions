@@ -1,4 +1,5 @@
 name: Run Tests
+
 on:
   workflow_dispatch:
     inputs:
@@ -38,17 +39,13 @@ jobs:
     - name: Run Maven Tests and Generate Report
       run: mvn clean test  # Running tests to generate reports
 
-    - name: Read the HTML report and embed it in the email body
-      id: embed-report
+    - name: Save the Extent Report to a Known Path
       run: |
-        # Read the content of the extentReports.html into a variable using PowerShell
-        $REPORT_BODY = Get-Content -Path "ExtentReports/extentReports.html" -Raw
-        echo "REPORT_BODY<<EOF" >> $GITHUB_ENV
-        echo "$REPORT_BODY" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
-      shell: pwsh
+        # Ensure the report is generated at the expected location
+        mkdir -p $GITHUB_WORKSPACE/ExtentReports
+        mv ExtentReports/extentReports.html $GITHUB_WORKSPACE/ExtentReports/extentReports.html
 
-    - name: Send Email with Embedded Report
+    - name: Send Email with Attachment
       uses: dawidd6/action-send-mail@v4
       with:
         server_address: smtp.gmail.com
@@ -58,13 +55,5 @@ jobs:
         to: ramesharavindhkarthikeyan.qa@gmail.com
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
-        body: |
-          <html>
-          <body>
-            <p>${{ github.event.inputs.email_body }}</p>
-            <hr>
-            <h3>Test Report:</h3>
-            <div>${{ env.REPORT_BODY }}</div>  <!-- Embedding raw HTML report content -->
-          </body>
-          </html>
-        is_html: true  # Important to make sure it's treated as HTML
+        body: ${{ github.event.inputs.email_body }}  # Email body content
+        attachments: $GITHUB_WORKSPACE/ExtentReports/extentReports.html  # Path to the generated report
