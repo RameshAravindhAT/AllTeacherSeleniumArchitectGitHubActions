@@ -1,5 +1,4 @@
 name: Run Tests
-
 on:
   workflow_dispatch:
     inputs:
@@ -15,11 +14,9 @@ on:
         description: 'Body of the email'
         required: true
         default: 'Here is the test report.'
-
 jobs:
   test:
     runs-on: windows-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -34,18 +31,17 @@ jobs:
         
     - name: Set environment variables for Chrome
       run: |
-        echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in headless mode
+        echo "CHROME_HEADLESS=false" >> $GITHUB_ENV
         
     - name: Run Maven Tests and Generate Report
-      run: mvn clean test  # Running tests to generate reports
-
-    - name: Save the Extent Report to a Known Path
+      run: mvn clean test
+      
+    - name: Comprehensive File Search
       run: |
-        # Ensure the report is generated at the expected location
-        mkdir -p $GITHUB_WORKSPACE/ExtentReports
-        mv ExtentReports/extentReports.html $GITHUB_WORKSPACE/ExtentReports/extentReports.html
-
-    - name: Send Email with Attachment
+        # Detailed file discovery
+        powershell -Command "Get-ChildItem -Path . -Recurse -Include *report*.html | Select-Object FullName"
+        
+    - name: Send Email with Report
       uses: dawidd6/action-send-mail@v4
       with:
         server_address: smtp.gmail.com
@@ -55,5 +51,7 @@ jobs:
         to: ramesharavindhkarthikeyan.qa@gmail.com
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
-        body: ${{ github.event.inputs.email_body }}  # Email body content
-        attachments: ${{ github.workspace }}/ExtentReports/extentReports.html  # Updated with forward slashes
+        body: ${{ github.event.inputs.email_body }}
+        attachments: |
+          target\**\*report*.html
+          **\*report*.html
