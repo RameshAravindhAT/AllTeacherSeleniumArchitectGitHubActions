@@ -1,4 +1,5 @@
 name: Run Tests
+
 on:
   workflow_dispatch:
     inputs:
@@ -14,6 +15,7 @@ on:
         description: 'Body of the email'
         required: true
         default: 'Here is the test report.'
+
 jobs:
   test:
     runs-on: windows-latest
@@ -35,7 +37,7 @@ jobs:
         
     - name: Run Maven Tests and Generate Report
       run: mvn clean test
-      
+     
     - name: Comprehensive File Search
       run: |
         # Detailed file discovery
@@ -48,10 +50,26 @@ jobs:
         server_port: 587
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
-        to: ramesharavindhkarthikeyan.qa@gmail.com
+        # Use GitHub's actor to send the email only to the person who triggered the workflow
+        to: ${{ secrets['CLIENT_EMAIL_' + github.actor] }}  # This will dynamically select the email based on the actor's username
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
-        body: ${{ github.event.inputs.email_body }}
+        body: |
+          Dear ${{ secrets.CLIENT_NAME }},  # Use the CLIENT_NAME secret for dynamic greeting
+
+          We hope this message finds you well.
+
+          As requested, the automation tests have been successfully executed. Please find attached the detailed test report, which has been generated and configured as per your specifications by Navadhiti Business Consultancy Solutions. We are pleased to inform you that the tests were completed as expected.
+
+          If you require any further information or assistance, please feel free to reach out to us. We are committed to providing continuous support and ensuring that all your requirements are met with the highest standard.
+
+          Thank you for trusting Navadhiti Business Consultancy Solutions to handle your automation needs.
+
+          Best regards,  
+          ${{ secrets.EMAIL_USERNAME }}  
+          Quality Assurance Engineer  
+          Navadhiti Business Consultancy Solutions  
+          ${{ secrets.CONTACT_INFORMATION }}
+
         attachments: |
           target\**\*report*.html
-          **\*report*.html
