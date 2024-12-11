@@ -45,6 +45,15 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/ExtentReports
         mv ExtentReports/extentReports.html $GITHUB_WORKSPACE/ExtentReports/extentReports.html
 
+    - name: Check if Report Exists
+      run: |
+        if (Test-Path "$GITHUB_WORKSPACE/ExtentReports/extentReports.html") {
+          Write-Host "Report found!"
+        } else {
+          Write-Host "Report not found!"
+        }
+      shell: pwsh
+
     - name: Send Email with Attachment
       uses: dawidd6/action-send-mail@v4
       with:
@@ -56,4 +65,4 @@ jobs:
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: ${{ github.event.inputs.email_body }}  # Email body content
-        attachments: $GITHUB_WORKSPACE/ExtentReports/extentReports.html  # Path to the generated report
+        attachments: ${{ github.workspace }}\ExtentReports\extentReports.html  # Full path to the report
