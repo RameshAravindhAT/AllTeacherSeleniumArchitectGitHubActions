@@ -50,8 +50,7 @@ jobs:
         server_port: 587
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
-        # Correctly referencing the GitHub secret for client email
-        to: ${{ secrets.CLIENT_EMAIL }}  # Make sure CLIENT_EMAIL is defined in your GitHub secrets
+        to: ${{ secrets.CLIENT_EMAIL }}  # Multiple emails are separated by commas
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: |
