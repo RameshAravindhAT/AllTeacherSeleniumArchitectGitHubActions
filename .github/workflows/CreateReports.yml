@@ -51,6 +51,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         to: ${{ secrets.CLIENT_EMAIL }}  # Multiple emails are separated by commas
+        cc: reslirocker@gmail.com  # CC recipient
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: |
