@@ -50,4 +50,4 @@ jobs:
         from: ${{ secrets.EMAIL_FROM }}  # Updated to use EMAIL_FROM secret
         subject: ${{ github.event.inputs.email_subject }}
         body: ${{ github.event.inputs.email_body }}
-        attachments: target/ExtentReports/extentReports.html
+        attachments: extentReports.html
