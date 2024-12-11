@@ -1,5 +1,4 @@
 name: Run Tests
-
 on:
   workflow_dispatch:
     inputs:
@@ -15,30 +14,24 @@ on:
         description: 'Body of the email'
         required: true
         default: 'Here is the test report.'
-
 jobs:
   test:
     runs-on: windows-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
         ref: ${{ github.event.inputs.branch }}
-
     - name: Set up Java 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
-
     - name: Set environment variables for Chrome
       run: |
         echo "CHROME_HEADLESS=false" >> $GITHUB_ENV  # Set Chrome to run in headless mode
-
     - name: Run Maven Tests and Generate Report
       run: mvn clean test  # Running tests to generate reports
-
     - name: Upload Extent Report as artifact
       uses: actions/upload-artifact@v4
       with:
@@ -46,7 +39,6 @@ jobs:
         path: ExtentReports/*
         if-no-files-found: warn
         include-hidden-files: false
-
     - name: Send Email with Report
       uses: dawidd6/action-send-mail@v4
       with:
@@ -55,7 +47,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         to: ramesharavindhkarthikeyan.qa@gmail.com
-        from: ${{ secrets.EMAIL_USERNAME }}  # Add this line for the 'from' email
-        subject: ${{ github.event.inputs.email_subject }}  # Use the subject passed from the API
-        body: ${{ github.event.inputs.email_body }}  # Use the body passed from the API
-        attachments: target/ExtentReports/extentReports.html  # Attach the test report generated
+        from: ${{ secrets.EMAIL_FROM }}  # Updated to use EMAIL_FROM secret
+        subject: ${{ github.event.inputs.email_subject }}
+        body: ${{ github.event.inputs.email_body }}
+        attachments: target/ExtentReports/extentReports.html
