@@ -54,12 +54,6 @@ jobs:
         }
       shell: pwsh
 
-    - name: Print File Path and Contents
-      run: |
-        echo "File path: ${{ github.workspace }}/ExtentReports/extentReports.html"
-        Get-Content -Path "${{ github.workspace }}/ExtentReports/extentReports.html" -Head 10
-      shell: pwsh
-
     - name: Check File Size and Warn if Too Large
       run: |
         $filePath = "${{ github.workspace }}/ExtentReports/extentReports.html"
