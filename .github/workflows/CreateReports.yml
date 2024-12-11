@@ -50,12 +50,10 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         to: ${{ secrets.CLIENT_EMAIL }}
-        cc: reslirocker@gmail.com
+        cc: reslirocker@gmail.com  # Added CC recipient
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
         body: |
-          Dear Client,
-
           We hope this message finds you well.
 
           As requested, the automation tests have been successfully executed. Please find attached the detailed test report, which has been generated and configured as per your specifications by Navadhiti Business Consultancy Solutions. We are pleased to inform you that the tests were completed as expected.
@@ -65,11 +63,9 @@ jobs:
           Thank you for trusting Navadhiti Business Consultancy Solutions to handle your automation needs.
 
           Best regards,  
-          ${{ secrets.EMAIL_USERNAME }}  
-          Quality Assurance Engineer  
-          Navadhiti Business Consultancy Solutions  
-          ${{ secrets.CONTACT_INFORMATION }}
+          ramesh@navadhiti.com  
+          Quality Assurance Engineer
 
         attachments: |
           target\**\*report*.html
-          target\**\*extent-report*.html 
+          **\*report*.html
