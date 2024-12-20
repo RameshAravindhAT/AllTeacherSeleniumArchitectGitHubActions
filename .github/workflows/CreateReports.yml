@@ -49,7 +49,7 @@ jobs:
         server_port: 587
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
-        to: ragul@navadhiti.com
+        to: ramesharavindhkarthikeyan.qa@navadhiti.com
         cc: ${{ secrets.CLIENT_EMAIL }}
         from: ${{ secrets.EMAIL_FROM }}
         subject: ${{ github.event.inputs.email_subject }}
